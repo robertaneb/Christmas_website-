@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title >Clickable Buttons</title>
+
+    
+    <style>
+        .rounded-rect {
+            width: 10px;
+            height: 20px;
+            background: #ffffff;         
+            border-radius: 40px;
+            transform: rotate(35deg);
+            
+        }
+
+        /*.rect-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 50px;
+            margin-left: auto;            
+            margin-right: auto; /*centers horizontally*/ 
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 250px;
+            background-color: rgb(164, 21, 21);
+        }
+        
+        button {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            /*padding: 15px 25px;*/
+            margin: 10px;
+            margin-top: 100px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        #toggleLight {
+            position: absolute;
+            bottom: 40px;
+            right: 40px;
+        }
+
+        </style>
+</head>
+<body>
+    <h1 style="color: white;">MERRY CHRISTMAS!</h1>
+    
+    <!--
+    <div class="rounded-rect" style="position:absolute; top:80px; left:30px"></div>
+    <div class="rounded-rect" style="position:absolute; top:30px; left:100px"></div>
+    <div class="rounded-rect" style="position:absolute; top:80px; left:170px"></div>
+    <div class="rounded-rect" style="position:absolute; top:30px; left:240px"></div>
+    <div class="rounded-rect" style="position:absolute; top:30px; left:240px;"></div>
+    <div class="rounded-rect" style="position:absolute; top:80px; left:310px;"></div>
+    <div class="rounded-rect" style="position:absolute; top:30px; left:380px;"></div>
+    <div class="rounded-rect" style="position:absolute; top:80px; left:450px;"></div>
+    -->
+
+    <div id="zigzag-container"></div>
+
+    <button onclick="buttonClicked('Button 1')"><img src="assets/play.png" width="50" height="50"></button>
+    <button id="toggleBtn" onclick="toggleImage()"><img id="toggleImg" src="assets/play.png" width="50" height="50"></button>
+    <button onclick="changeColor()"><img src="assets/cont.png" width="50" height="50"></button>
+    <button id="toggleLight" onclick="toggleLightBulb(); turnOnLights()"><img id="toggleLig" src="assets/bulb.png" width="50" height="50"></button>
+
+    <p id="output"></p>
+
+    <script>
+
+        let count = 0;
+        function buttonClicked(name) {
+            count++;
+            document.getElementById('output').innerText = name + ' was clicked ' + count + " times ";
+
+        }
+
+        //function changeColor() {
+        //    document.body.style.backgroundColor = "rgb(4, 1, 25)";
+        //}
+
+        function incrementCounter() {
+            count++;
+            document.getElementById("output").innerText = "Counter: " + count;
+        }
+
+        function toggleImage() {
+            let img = document.getElementById("toggleImg");
+            if (img.src.includes("play.png")) {
+                img.src = "assets/pause.png";
+            } else {
+                img.src = "assets/play.png";
+            }
+        }
+
+        function toggleLightBulb() {
+
+            let lightCount = 0;
+            let img = document.getElementById("toggleLig");
+            const container = document.getElementById("zigzag-container");
+            const rects = container.getElementsByClassName("rounded-rect");
+
+
+            if (img.src.includes("bulb.png")) {
+                img.src = "assets/ligon.png";
+                document.body.style.backgroundColor = "rgb(4, 1, 25)"
+                
+                for (let i = 0; i < rects.length; i++) {
+                    rects[i].style.backgroundColor = "yellow";
+                }
+
+            } else {
+                img.src = "assets/bulb.png";
+                document.body.style.backgroundColor = "rgb(164, 21, 21)";
+                
+                for (let i = 0; i < rects.length; i++) {
+                    rects[i].style.backgroundColor = "#ffffff";
+                }
+            }
+        }
+        //function turnOnLights() {
+        //    const container = document.getElementById("zigzag-container");
+        //    const rects = container.getElementsByClassName("rounded-rect");
+        //    for (let i = 0; i < rects.length; i++) {
+        //        rects[i].style.backgroundColor = "yellow";
+        //    }
+        //}
+
+        
+
+        const container = document.getElementById("zigzag-container"); 
+
+        const rectWidth = 50;
+        const startLeft = 30;
+        const spacing = 70;
+        const topPositions = [30, 80, 130];
+        const screenWidth = 1920;
+        const endLeft = screenWidth - rectWidth - startLeft;
+        
+
+        let left = startLeft;
+        let i = 0;
+
+        //while(left <= endLeft) {
+        //    const rect = document.createElement("div");
+        //    
+        //    rect.className = "rounded-rect";
+        //    rect.style.position = "absolute";
+        //    rect.style.left = left + "px";
+        //    rect.style.top = topPositions[i % 2] + "px";
+        //    container.appendChild(rect);
+//
+        //    left += spacing;
+        //    i++;
+        //}
+
+        for (let i = 0; i < endLeft; i++) {
+            const rect = document.createElement("div");
+            rect.className = "rounded-rect";
+
+            rect.style.position = "absolute";
+            rect.style.left = left + "px";
+            rect.style.top = topPositions[i % 2] + "px";
+            container.appendChild(rect);
+
+            left += spacing;
+
+        }
+    </script>
+</body>
+</html>
